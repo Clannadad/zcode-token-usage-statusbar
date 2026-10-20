@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>ZCode 额度状态栏 · 演示</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 48px 56px 40px;
+    background: #0b0d12;
+    background-image:
+      radial-gradient(900px 380px at 12% -8%, rgba(88,130,255,.16), transparent 60%),
+      radial-gradient(700px 320px at 92% 8%, rgba(52,211,153,.10), transparent 60%);
+    font-family: "Microsoft YaHei UI", "PingFang SC", system-ui, sans-serif;
+    color: #e9edf4;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  header { margin-bottom: 28px; }
+  h1 { font-size: 30px; margin: 0 0 8px; letter-spacing: -.4px; }
+  h1 .accent { background: linear-gradient(92deg,#6ea8fe,#3ecf8e); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { color: #8d97a8; font-size: 15px; margin: 0; }
+  .badges { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge { font-size: 12px; color: #9fb0c8; border: 1px solid #232a38; background: #12161f; padding: 3px 9px; border-radius: 999px; }
+
+  .stage { margin-top: 30px; }
+  .label { font-size: 12px; color: #7c8798; margin: 0 0 8px 4px; letter-spacing: .5px; }
+
+  /* 模拟 ZCode 的输入卡片 */
+  .card {
+    background: #141821; border: 1px solid #232a38; border-radius: 14px;
+    padding: 14px 16px 0;
+    box-shadow: 0 18px 48px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
+  }
+  .composer-hint { color: #5f6b7d; font-size: 14px; padding: 2px 2px 12px; }
+
+  /* 状态条本体：与 overlay.js 的实际样式一致 */
+  .zu-main {
+    display: flex; align-items: center; gap: 1px; justify-content: space-between;
+    border-top: 1px solid #1e2531; padding: 7px 2px 9px;
+    font-family: var(--font-mono, Consolas, Menlo, "Microsoft YaHei UI", monospace);
+    font-size: 13px;
+  }
+  .it { display: flex; align-items: center; gap: 4px; padding: 2px 6px; border-radius: 6px; }
+  .sep { width: 1px; height: 15px; background: #232a38; margin: 0 1px; }
+  .dim { color: #667082; }
+  .v { color: #e9edf4; font-weight: 600; }
+  .ok { color: #3ecf8e; } .warm { color: #f5b944; } .hot { color: #ff6b57; }
+  .zu-q { display: inline-flex; align-items: baseline; gap: 4px; }
+  .zu-q + .zu-q { margin-left: 10px; }
+  .zu-q .q-w { color: #667082; }
+  .zu-q .q-v { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .zu-live { color: #e9edf4; font-weight: 600; }
+  .ico { width: 12px; height: 12px; fill: none; stroke: #667082; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
+
+  /* 悬停明细 */
+  .tip-demo {
+    margin-top: 14px; width: 340px;
+    background: rgba(19,22,30,.97); border: 1px solid #232a38; border-radius: 12px;
+    padding: 12px 14px; font-family: Consolas, Menlo, "Microsoft YaHei UI", monospace;
+    font-size: 12.5px; line-height: 1.75; color: #c6cdd9;
+    box-shadow: 0 12px 32px rgba(0,0,0,.5);
+  }
+  .rt-h { font-weight: 700; color: #e9edf4; margin-bottom: 4px; }
+  .rt-row { display: flex; justify-content: space-between; gap: 16px; }
+  .rt-row b { font-weight: 400; color: #7c8798; }
+  .rt-row span { color: #dfe6f0; }
+  .rt-note { margin-top: 6px; color: #6b7688; font-size: 11.5px; }
+
+  .cols { display: flex; gap: 26px; align-items: flex-start; flex-wrap: wrap; }
+  .col-a { flex: 1 1 620px; }
+  .col-b { flex: 0 0 auto; }
+
+  footer { margin-top: 34px; color: #5f6b7d; font-size: 12.5px; }
+  footer code { color: #9fb0c8; background: #12161f; border: 1px solid #232a38; border-radius: 5px; padding: 1px 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>ZCode <span class="accent">额度状态栏</span></h1>
+    <p class="sub">按当前模型显示供应商额度占用与重置倒计时 —— 切模型即刻跟随，一眼看清还能用多久。</p>
+    <div class="badges">
+      <span class="badge">MiniMax Token Plan</span>
+      <span class="badge">ClinePass</span>
+      <span class="badge">Kimi</span>
+      <span class="badge">GLM / Z.ai</span>
+      <span class="badge">OpenCode Go</span>
+      <span class="badge">DeepSeek 余额</span>
+    </div>
+  </header>
+
+  <div class="stage cols">
+    <div class="col-a">
+      <p class="label">输入框下方 · 实时状态条</p>
+      <div class="card">
+        <div class="composer-hint">提出后续修改要求</div>
+        <div class="zu-main">
+          <span class="it">
+            <span class="zu-q"><span class="q-w">5小时</span><span class="q-v ok">7%</span></span>
+            <span class="zu-q"><span class="q-w">周</span><span class="q-v ok">52%</span></span>
+            <span class="zu-q"><span class="q-w">月</span><span class="q-v ok">24%</span></span>
+          </span>
+          <span class="sep"></span>
+          <span class="it">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="zu-live">44</span><span class="dim">t/s</span>
+          </span>
+          <span class="sep"></span>
+          <span class="it">
+            <span class="dim">会话</span><span class="v">1.08亿</span><span class="dim">441次</span>
+          </span>
+          <span class="sep"></span>
+          <span class="it">
+            <span class="dim">今日</span><span class="v">3.03亿</span>
+          </span>
+        </div>
+      </div>
+
+      <p class="label" style="margin-top:22px">按量计费账户 · 显示余额</p>
+      <div class="card">
+        <div class="composer-hint">DeepSeek 直连</div>
+        <div class="zu-main">
+          <span class="it">
+            <span class="zu-q"><span class="q-w">余额</span><span class="q-v ok">¥42.80</span></span>
+          </span>
+          <span class="sep"></span>
+          <span class="it">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="zu-live">38</span><span class="dim">t/s</span>
+          </span>
+          <span class="sep"></span>
+          <span class="it"><span class="dim">会话</span><span class="v">1,284万</span><span class="dim">96次</span></span>
+          <span class="sep"></span>
+          <span class="it"><span class="dim">今日</span><span class="v">4,102万</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-b">
+      <p class="label">悬停额度芯片 · 各窗口重置时间</p>
+      <div class="tip-demo">
+        <div class="rt-h">额度占用 · clinepass（Cline Pass (Monthly)）</div>
+        <div class="rt-row"><b>5小时</b><span>7% · 重置 2小时</span></div>
+        <div class="rt-row"><b>周</b><span>52% · 重置 3天10小时</span></div>
+        <div class="rt-row"><b>月</b><span>24% · 重置 24天</span></div>
+        <div class="rt-row"><b>账户余额</b><span>500000</span></div>
+        <div class="rt-note">占用越高越接近红色；额度用尽后该模型将不可用</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    数据来自本地 <code>db.sqlite</code>（token 用量）与供应商额度接口（只发送本机 API Key，不上传用量）。
+  </footer>
+</div>
+</body>
+</html>

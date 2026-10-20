@@ -1,0 +1,36 @@
+{
+  "name": "zusage-marketplace",
+  "description": "zcode-token-usage-statusbar 插件市场：ZCode token 用量查询（MCP / 命令 / 技能）与默认自动安装/修复桌面悬浮状态条（修改 app.asar，成功后需完全退出并重开）。",
+  "owner": {
+    "name": "xhwxt/ByteRax",
+    "url": "https://github.com/ByteRax"
+  },
+  "plugins": [
+    {
+      "name": "zcode-token-usage-statusbar",
+      "source": "./plugins/zcode-token-usage-statusbar",
+      "description": "ZCode 额度状态栏：按当前模型显示供应商额度（MiniMax Token Plan / ClinePass / Kimi / GLM / OpenCode Go 的 5小时·周·月窗口与重置倒计时；DeepSeek / Moonshot / SiliconFlow / StepFun / OpenRouter 等显示账户余额），以及生成速度、会话累计与今日用量。默认自动安装状态条会修改客户端 app.asar，成功后须完全退出并重开 ZCode；显式关闭自动安装会保留。",
+      "description_i18n": {
+        "en": "ZCode quota status bar: provider quota for the current model (MiniMax Token Plan, ClinePass, Kimi, GLM, OpenCode Go windows with reset countdowns; DeepSeek, Moonshot, SiliconFlow, StepFun, OpenRouter balances), plus generation speed and token usage. By default it auto-installs the floating bar, which modifies app.asar; fully quit and reopen ZCode to take effect. An explicit opt-out is respected.",
+        "zh-CN": "ZCode 额度状态栏：按当前模型显示供应商额度（MiniMax Token Plan / ClinePass / Kimi / GLM / OpenCode Go 的 5小时·周·月窗口与重置倒计时；DeepSeek / Moonshot / SiliconFlow / StepFun / OpenRouter 等显示账户余额），以及生成速度、会话累计与今日用量。默认自动安装状态条会修改客户端 app.asar，成功后须完全退出并重开 ZCode；显式关闭自动安装会保留。"
+      },
+      "version": "1.6.0",
+      "author": {
+        "name": "xhwxt/ByteRax"
+      },
+      "category": "monitoring",
+      "keywords": [
+        "token",
+        "usage",
+        "quota",
+        "statusbar",
+        "monitor",
+        "zusage",
+        "minimax",
+        "clinepass",
+        "kimi",
+        "deepseek"
+      ]
+    }
+  ]
+}
