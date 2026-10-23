@@ -1,24 +1,21 @@
 {
+  "description": "zcode-token-usage-statusbar \u63d2\u4ef6\u5e02\u573a\uff1aZCode token \u7528\u91cf\u67e5\u8be2\uff08MCP / \u547d\u4ee4 / \u6280\u80fd\uff09\u4e0e\u9ed8\u8ba4\u81ea\u52a8\u5b89\u88c5/\u4fee\u590d\u684c\u9762\u60ac\u6d6e\u72b6\u6001\u6761\uff08\u4fee\u6539 app.asar\uff0c\u6210\u529f\u540e\u9700\u5b8c\u5168\u9000\u51fa\u5e76\u91cd\u5f00\uff09\u3002",
   "name": "zusage-marketplace",
-  "description": "zcode-token-usage-statusbar 插件市场：ZCode token 用量查询（MCP / 命令 / 技能）与默认自动安装/修复桌面悬浮状态条（修改 app.asar，成功后需完全退出并重开）。",
   "owner": {
     "name": "xhwxt/ByteRax",
     "url": "https://github.com/ByteRax"
   },
   "plugins": [
     {
-      "name": "zcode-token-usage-statusbar",
-      "source": "./plugins/zcode-token-usage-statusbar",
-      "description": "ZCode 额度状态栏：按当前模型显示供应商额度（MiniMax Token Plan / ClinePass / Kimi / GLM / OpenCode Go 的 5小时·周·月窗口与重置倒计时；DeepSeek / Moonshot / SiliconFlow / StepFun / OpenRouter 等显示账户余额），以及生成速度、会话累计与今日用量。默认自动安装状态条会修改客户端 app.asar，成功后须完全退出并重开 ZCode；显式关闭自动安装会保留。",
-      "description_i18n": {
-        "en": "ZCode quota status bar: provider quota for the current model (MiniMax Token Plan, ClinePass, Kimi, GLM, OpenCode Go windows with reset countdowns; DeepSeek, Moonshot, SiliconFlow, StepFun, OpenRouter balances), plus generation speed and token usage. By default it auto-installs the floating bar, which modifies app.asar; fully quit and reopen ZCode to take effect. An explicit opt-out is respected.",
-        "zh-CN": "ZCode 额度状态栏：按当前模型显示供应商额度（MiniMax Token Plan / ClinePass / Kimi / GLM / OpenCode Go 的 5小时·周·月窗口与重置倒计时；DeepSeek / Moonshot / SiliconFlow / StepFun / OpenRouter 等显示账户余额），以及生成速度、会话累计与今日用量。默认自动安装状态条会修改客户端 app.asar，成功后须完全退出并重开 ZCode；显式关闭自动安装会保留。"
-      },
-      "version": "1.6.0",
       "author": {
         "name": "xhwxt/ByteRax"
       },
       "category": "monitoring",
+      "description": "ZCode \u989d\u5ea6\u72b6\u6001\u680f\uff1a\u6309\u5f53\u524d\u6a21\u578b\u663e\u793a\u4f9b\u5e94\u5546\u989d\u5ea6\uff08MiniMax Token Plan / ClinePass / Kimi / GLM / OpenCode Go \u7684 5\u5c0f\u65f6\u00b7\u5468\u00b7\u6708\u7a97\u53e3\u4e0e\u91cd\u7f6e\u5012\u8ba1\u65f6\uff1bDeepSeek / Moonshot / SiliconFlow / StepFun / OpenRouter \u7b49\u663e\u793a\u8d26\u6237\u4f59\u989d\uff09\uff0c\u4ee5\u53ca\u751f\u6210\u901f\u5ea6\u3001\u4f1a\u8bdd\u7d2f\u8ba1\u4e0e\u4eca\u65e5\u7528\u91cf\u3002\u9ed8\u8ba4\u81ea\u52a8\u5b89\u88c5\u72b6\u6001\u6761\u4f1a\u4fee\u6539\u5ba2\u6237\u7aef app.asar\uff0c\u6210\u529f\u540e\u987b\u5b8c\u5168\u9000\u51fa\u5e76\u91cd\u5f00 ZCode\uff1b\u663e\u5f0f\u5173\u95ed\u81ea\u52a8\u5b89\u88c5\u4f1a\u4fdd\u7559\u3002",
+      "description_i18n": {
+        "en": "ZCode quota status bar: provider quota for the current model (MiniMax Token Plan, ClinePass, Kimi, GLM, OpenCode Go windows with reset countdowns; DeepSeek, Moonshot, SiliconFlow, StepFun, OpenRouter balances), plus generation speed and token usage. By default it auto-installs the floating bar, which modifies app.asar; fully quit and reopen ZCode to take effect. An explicit opt-out is respected.",
+        "zh-CN": "ZCode \u989d\u5ea6\u72b6\u6001\u680f\uff1a\u6309\u5f53\u524d\u6a21\u578b\u663e\u793a\u4f9b\u5e94\u5546\u989d\u5ea6\uff08MiniMax Token Plan / ClinePass / Kimi / GLM / OpenCode Go \u7684 5\u5c0f\u65f6\u00b7\u5468\u00b7\u6708\u7a97\u53e3\u4e0e\u91cd\u7f6e\u5012\u8ba1\u65f6\uff1bDeepSeek / Moonshot / SiliconFlow / StepFun / OpenRouter \u7b49\u663e\u793a\u8d26\u6237\u4f59\u989d\uff09\uff0c\u4ee5\u53ca\u751f\u6210\u901f\u5ea6\u3001\u4f1a\u8bdd\u7d2f\u8ba1\u4e0e\u4eca\u65e5\u7528\u91cf\u3002\u9ed8\u8ba4\u81ea\u52a8\u5b89\u88c5\u72b6\u6001\u6761\u4f1a\u4fee\u6539\u5ba2\u6237\u7aef app.asar\uff0c\u6210\u529f\u540e\u987b\u5b8c\u5168\u9000\u51fa\u5e76\u91cd\u5f00 ZCode\uff1b\u663e\u5f0f\u5173\u95ed\u81ea\u52a8\u5b89\u88c5\u4f1a\u4fdd\u7559\u3002"
+      },
       "keywords": [
         "token",
         "usage",
@@ -30,7 +27,17 @@
         "clinepass",
         "kimi",
         "deepseek"
-      ]
+      ],
+      "name": "zcode-token-usage-statusbar",
+      "source": {
+        "path": "plugins/zcode-token-usage-statusbar",
+        "sha256": "fd3cf01c80a14fc3f6e498263a76a40e822035e5be2bffdc136af119100e71e6",
+        "source": "url",
+        "stripRoot": false,
+        "type": "zip",
+        "url": "https://github.com/Clannadad/zcode-token-usage-statusbar/releases/download/v1.6.0/zcode-token-usage-statusbar-v1.6.0.zip"
+      },
+      "version": "1.6.0"
     }
   ]
 }
