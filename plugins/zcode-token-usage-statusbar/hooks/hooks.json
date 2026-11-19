@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "process",
-            "command": "python3",
+            "command": "pythonw",
             "args": [
               "${ZCODE_PLUGIN_ROOT}/hooks/session-start.py"
             ],
@@ -22,7 +22,7 @@
         "hooks": [
           {
             "type": "process",
-            "command": "python3",
+            "command": "pythonw",
             "args": [
               "${ZCODE_PLUGIN_ROOT}/hooks/prompt-submit.py"
             ],
