@@ -154,8 +154,31 @@ def finalize_tmp(verified=None):
                            verified=verified)
 
 
+def _clear_screen():
+    """清屏。
+
+    不要用 os.system("cls")：Windows 上它会 spawn 一个 cmd 控制台窗口，
+    即使主进程是 pythonw 也会在任务栏闪一个黑窗。直接写 ANSI 控制码即可，
+    不产生任何子进程。
+    """
+    try:
+        if os.name == "nt":
+            # 启用 VT 处理后写 ANSI 清屏序列；失败则忽略(只是不清屏)。
+            try:
+                import ctypes
+                ctypes.windll.kernel32.SetConsoleMode(
+                    ctypes.windll.kernel32.GetStdHandle(-11), 0x0004)
+            except Exception:
+                pass
+        sys.stdout.write("\x1b[2J\x1b[H")
+        sys.stdout.flush()
+    except Exception:
+        pass
+
+
 def draw(lines):
-    os.system("cls" if os.name == "nt" else "clear")
+    _clear_screen()
+    print("\n".join(lines), flush=True)
     print("\n".join(lines), flush=True)
 
 
