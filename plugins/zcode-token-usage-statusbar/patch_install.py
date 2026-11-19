@@ -151,9 +151,56 @@ def set_target(asar_path):
     ZCODE_EXE = zcode_exe_for(asar_path)
 
 
+
+def _zcode_pids_win_api(name="ZCode.exe"):
+    """用 ToolHelp32 API 枚举进程，不 spawn tasklist（避免 conhost 闪屏）。"""
+    try:
+        import ctypes
+        from ctypes import wintypes
+
+        class PROCESSENTRY32W(ctypes.Structure):
+            _fields_ = [
+                ("dwSize", wintypes.DWORD),
+                ("cntUsage", wintypes.DWORD),
+                ("th32ProcessID", wintypes.DWORD),
+                ("th32DefaultHeapID", ctypes.POINTER(ctypes.c_ulong)),
+                ("th32ModuleID", wintypes.DWORD),
+                ("cntThreads", wintypes.DWORD),
+                ("th32ParentProcessID", wintypes.DWORD),
+                ("pcPriClassBase", ctypes.c_long),
+                ("dwFlags", wintypes.DWORD),
+                ("szExeFile", ctypes.c_wchar * 260),
+            ]
+
+        k = ctypes.WinDLL("kernel32", use_last_error=True)
+        snap = k.CreateToolhelp32Snapshot(0x00000002, 0)  # TH32CS_SNAPPROCESS
+        if snap == -1:
+            return None
+        out = set()
+        try:
+            entry = PROCESSENTRY32W()
+            entry.dwSize = ctypes.sizeof(PROCESSENTRY32W)
+            if not k.Process32FirstW(snap, ctypes.byref(entry)):
+                return out
+            while True:
+                if entry.szExeFile.lower() == name.lower():
+                    out.add(int(entry.th32ProcessID))
+                if not k.Process32NextW(snap, ctypes.byref(entry)):
+                    break
+        finally:
+            k.CloseHandle(snap)
+        return out
+    except Exception:
+        return None
+
 def client_running():
     try:
         if IS_WIN:
+            # 用 API 枚举，不 spawn tasklist（每次 tasklist 都会创建 conhost
+            # 控制台窗口，在任务栏表现为黑窗闪烁）。
+            pids = _zcode_pids_win_api()
+            if pids is not None:
+                return bool(pids)
             out = subprocess.run(
                 ["tasklist", "/FI", "IMAGENAME eq ZCode.exe"],
                 capture_output=True, text=True, encoding="gbk", errors="replace",
